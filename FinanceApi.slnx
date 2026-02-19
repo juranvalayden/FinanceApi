@@ -11,4 +11,7 @@
   <Folder Name="/4 - Domain/">
     <Project Path="FinanceApi.Domain/FinanceApi.Domain.csproj" />
   </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+  </Folder>
 </Solution>
