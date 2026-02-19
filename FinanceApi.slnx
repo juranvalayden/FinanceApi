@@ -1,0 +1,14 @@
+<Solution>
+  <Folder Name="/1 - Presentation/">
+    <Project Path="FinanceApi.Presentation/FinanceApi.Presentation.csproj" />
+  </Folder>
+  <Folder Name="/2 - Application/">
+    <Project Path="FinanceApi.Application/FinanceApi.Application.csproj" />
+  </Folder>
+  <Folder Name="/3 - Infrastructure/">
+    <Project Path="FinanceApi.Infrastructure/FinanceApi.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/4 - Domain/">
+    <Project Path="FinanceApi.Domain/FinanceApi.Domain.csproj" />
+  </Folder>
+</Solution>
