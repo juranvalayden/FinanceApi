@@ -1,6 +1,6 @@
-﻿namespace FinanceApi.Domain.Entities;
+﻿namespace FinanceApi.Application.Dtos;
 
-public class SalesOrderDetail
+public class SalesOrderDetailDto
 {
     public int Id { get; set; }
 
@@ -13,5 +13,4 @@ public class SalesOrderDetail
     public DateTime ModifiedDate { get; set; }
 
     public int SalesOrderId { get; set; }
-    public virtual SalesOrder SalesOrder { get; set; } = null!;
 }

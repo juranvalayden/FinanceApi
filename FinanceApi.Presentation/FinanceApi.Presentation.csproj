@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="10.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\FinanceApi.Application\FinanceApi.Application.csproj" />
     <ProjectReference Include="..\FinanceApi.Infrastructure\FinanceApi.Infrastructure.csproj" />
   </ItemGroup>

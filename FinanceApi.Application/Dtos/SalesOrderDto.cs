@@ -1,8 +1,8 @@
-﻿namespace FinanceApi.Domain.Entities;
+﻿namespace FinanceApi.Application.Dtos;
 
-public class SalesOrder
+public class SalesOrderDto
 {
-    public int Id { get; set; } // in the db table it's called SalesOrderID
+    public int Id { get; set; }
     public byte RevisionNumber { get; set; }
     public DateTime OrderDate { get; set; }
     public DateTime DueDate { get; set; }
@@ -25,5 +25,5 @@ public class SalesOrder
     public Guid RowGuid { get; set; }
     public DateTime ModifiedDate { get; set; }
 
-    public virtual ICollection<SalesOrderDetail> SalesOrderDetails { get; set; } = [];
+    public ICollection<SalesOrderDetailDto> SalesOrderDetailDtos { get; set; } = [];
 }

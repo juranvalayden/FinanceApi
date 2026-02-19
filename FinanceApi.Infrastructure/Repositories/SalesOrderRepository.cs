@@ -14,8 +14,15 @@ public class SalesOrderRepository : ISalesOrderRepository
         _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
     }
 
-    public async Task<SalesOrder?> GetByIdAsync(int id)
+    public async Task<SalesOrder?> GetByIdAsync(int id, bool shouldIncludeSalesOrderDetails = false, CancellationToken cancellationToken = default)
     {
-        return await _dbContext.SalesOrders.FirstOrDefaultAsync(s => s.Id == id);
+        if (!shouldIncludeSalesOrderDetails) return await _dbContext.SalesOrders.FirstOrDefaultAsync(s => s.Id == id, cancellationToken);
+
+        var salesOrder = await _dbContext
+            .SalesOrders
+            .Include(s => s.SalesOrderDetails)
+            .FirstOrDefaultAsync(s => s.Id == id, cancellationToken);
+
+        return salesOrder;
     }
 }

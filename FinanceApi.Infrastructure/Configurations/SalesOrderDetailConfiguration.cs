@@ -10,44 +10,38 @@ public class SalesOrderDetailConfiguration : IEntityTypeConfiguration<SalesOrder
     {
         builder.ToTable("SalesOrderDetail");
 
-        builder.HasKey(d => d.Id);
+        builder.HasKey(e => e.Id);
 
-        builder.Property(d => d.Id)
-            .HasColumnName("SalesOrderDetailID")
+        builder.Property(e => e.Id)
+            .HasColumnName("SalesOrderDetailID");
+
+        builder.Property(e => e.OrderQty)
             .IsRequired();
 
-        builder.Property(d => d.SalesOrderId)
+        builder.Property(e => e.ProductId)
+            .IsRequired();
+
+        builder.Property(e => e.UnitPrice)
+            .HasColumnType("decimal(18,2)")
+            .IsRequired();
+
+        builder.Property(e => e.UnitPriceDiscount)
+            .HasColumnType("decimal(18,2)")
+            .IsRequired();
+
+        builder.Property(e => e.LineTotal)
+            .HasColumnType("decimal(18,2)");
+
+        builder.Property(e => e.RowGuid)
+            .HasColumnName("rowguid")
+            .IsRequired();
+
+        builder.Property(e => e.ModifiedDate)
+            .HasColumnType("datetime")
+            .IsRequired();
+
+        builder.Property(e => e.SalesOrderId)
             .HasColumnName("SalesOrderID")
             .IsRequired();
-
-        builder.Property(d => d.OrderQty)
-            .IsRequired();
-
-        builder.Property(d => d.ProductId)
-            .HasColumnName("ProductID")
-            .IsRequired();
-
-        builder.Property(d => d.UnitPrice)
-            .IsRequired()
-            .HasColumnType("money");
-
-        builder.Property(d => d.UnitPriceDiscount)
-            .IsRequired()
-            .HasColumnType("money");
-
-        builder
-            .Property(d => d.LineTotal)
-            .HasColumnType("numeric(38,6)");
-
-        builder.Property(d => d.RowGuid)
-            .IsRequired();
-
-        builder.Property(d => d.ModifiedDate)
-            .IsRequired()
-            .HasColumnType("datetime");
-
-        builder.HasOne(d => d.SalesOrder)
-            .WithMany()
-            .HasForeignKey(d => d.SalesOrderId);
     }
 }

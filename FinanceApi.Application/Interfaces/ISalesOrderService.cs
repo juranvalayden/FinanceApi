@@ -1,8 +1,10 @@
-﻿using FinanceApi.Domain.Entities;
+﻿using FinanceApi.Application.Dtos;
 
 namespace FinanceApi.Application.Interfaces;
 
 public interface ISalesOrderService
 {
-    Task<SalesOrder?> GetByIdAsync(int id);
+    Task<SalesOrderDto?> GetByIdAsync(int id, 
+        bool shouldIncludeSalesOrderDetails = false,
+        CancellationToken cancellationToken = default);
 }

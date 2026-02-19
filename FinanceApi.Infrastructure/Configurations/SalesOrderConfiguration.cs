@@ -8,87 +8,85 @@ public class SalesOrderConfiguration : IEntityTypeConfiguration<SalesOrder>
 {
     public void Configure(EntityTypeBuilder<SalesOrder> builder)
     {
-        builder.ToTable("SalesOrder");
+        builder.ToTable("SalesOrderHeader");
 
-        builder.HasKey(s => s.Id);
+        builder.HasKey(e => e.Id);
 
-        builder.Property(s => s.Id)
-            .HasColumnName("SalesOrderID")
+        builder.Property(e => e.Id)
+            .HasColumnName("SalesOrderID");
+
+        builder.Property(e => e.RevisionNumber)
             .IsRequired();
 
-        builder.Property(s => s.RevisionNumber)
+        builder.Property(e => e.OrderDate)
+            .HasColumnType("datetime")
             .IsRequired();
 
-        builder.Property(s => s.OrderDate)
-            .IsRequired()
+        builder.Property(e => e.DueDate)
+            .HasColumnType("datetime")
+            .IsRequired();
+
+        builder.Property(e => e.ShipDate)
             .HasColumnType("datetime");
 
-        builder.Property(s => s.DueDate)
-            .IsRequired()
-            .HasColumnType("datetime");
-
-        builder.Property(s => s.ShipDate)
-            .HasColumnType("datetime");
-
-        builder.Property(s => s.Status)
+        builder.Property(e => e.Status)
             .IsRequired();
 
-        builder.Property(s => s.OnlineOrderFlag)
+        builder.Property(e => e.OnlineOrderFlag)
             .IsRequired();
 
-        builder.Property(s => s.SalesOrderNumber)
-            .HasMaxLength(50);
+        builder.Property(e => e.SalesOrderNumber)
+            .HasMaxLength(25);
 
-        builder.Property(s => s.PurchaseOrderNumber)
-            .HasMaxLength(50);
+        builder.Property(e => e.PurchaseOrderNumber)
+            .HasMaxLength(25);
 
-        builder.Property(s => s.AccountNumber)
-            .HasMaxLength(30);
+        builder.Property(e => e.AccountNumber)
+            .HasMaxLength(15);
 
-        builder
-            .Property(s => s.CustomerId)
-            .HasColumnName("CustomerID")
+        builder.Property(e => e.CustomerId)
             .IsRequired();
 
-        builder
-            .Property(s => s.ShipToAddressId)
-            .HasColumnName("ShipToAddressID");
+        builder.Property(e => e.ShipToAddressId);
 
-        builder
-            .Property(s => s.BillToAddressId)
-            .HasColumnName("BillToAddressID");
+        builder.Property(e => e.BillToAddressId);
 
-        builder.Property(s => s.ShipMethod)
-            .IsRequired()
-            .HasMaxLength(100);
-
-        builder.Property(s => s.CreditCardApprovalCode)
-            .HasMaxLength(15)
-            .IsUnicode(false);
-
-        builder.Property(s => s.SubTotal)
-            .IsRequired()
-            .HasColumnType("money");
-
-        builder.Property(s => s.TaxAmt)
-            .IsRequired()
-            .HasColumnType("money");
-
-        builder.Property(s => s.Freight)
-            .IsRequired()
-            .HasColumnType("money");
-
-        builder.Property(s => s.TotalDue)
-            .HasColumnType("money");
-
-        builder.Property(s => s.Comment)
-            .HasColumnType("nvarchar(max)");
-
-        builder.Property(s => s.RowGuid)
+        builder.Property(e => e.ShipMethod)
+            .HasMaxLength(50)
             .IsRequired();
 
-        builder.Property(s => s.ModifiedDate)
-            .IsRequired()
-            .HasColumnType("datetime");
+        builder.Property(e => e.CreditCardApprovalCode)
+            .HasMaxLength(15);
+
+        builder.Property(e => e.SubTotal)
+            .HasColumnType("decimal(18,2)")
+            .IsRequired();
+
+        builder.Property(e => e.TaxAmt)
+            .HasColumnType("decimal(18,2)")
+            .IsRequired();
+
+        builder.Property(e => e.Freight)
+            .HasColumnType("decimal(18,2)")
+            .IsRequired();
+
+        builder.Property(e => e.TotalDue)
+            .HasColumnType("decimal(18,2)");
+
+        builder.Property(e => e.Comment)
+            .HasMaxLength(128);
+
+        builder.Property(e => e.RowGuid)
+            .HasColumnName("rowguid")
+            .IsRequired();
+
+        builder.Property(e => e.ModifiedDate)
+            .HasColumnType("datetime")
+            .IsRequired();
+
+        builder.HasMany(e => e.SalesOrderDetails)
+            .WithOne(d => d.SalesOrder)
+            .HasForeignKey(d => d.SalesOrderId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }
