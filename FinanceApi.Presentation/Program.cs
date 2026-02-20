@@ -1,34 +1,18 @@
-using FinanceApi.Application;
-using FinanceApi.Infrastructure;
+using FinanceApi.Presentation.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 try
 {
-    // Add services to the container.
-    builder.Services.AddControllers(options =>
-        {
-            options.ReturnHttpNotAcceptable = true;
-        })
-        .AddNewtonsoftJson()
-        .AddXmlDataContractSerializerFormatters();
-
-    builder.Services.AddProblemDetails();
-    builder.Services.AddEndpointsApiExplorer();
-
-    builder.Services.AddInfrastructure(builder.Configuration);
-    builder.Services.AddApplication();
+    builder.RegisterServices();
 
     var app = builder.Build();
 
-    // Configure the HTTP request pipeline.
+    app.UseEnvironment();
 
     app.UseHttpsRedirection();
 
     app.UseRouting();
-
-    app.UseAuthorization();
 
     app.UseEndpoints(endpoints =>
     {
@@ -37,8 +21,8 @@ try
 
     app.Run();
 }
-catch (Exception e)
+catch (Exception exception)
 {
-    Console.WriteLine(e);
+    Console.WriteLine(exception);
     throw;
 }

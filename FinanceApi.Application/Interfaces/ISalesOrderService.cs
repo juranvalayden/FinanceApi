@@ -7,4 +7,7 @@ public interface ISalesOrderService
     Task<SalesOrderDto?> GetByIdAsync(int id, 
         bool shouldIncludeSalesOrderDetails = false,
         CancellationToken cancellationToken = default);
+
+    Task<IEnumerable<SalesOrderDto>?> GetAllAsync(bool shouldIncludeSalesOrderDetails = false,
+        CancellationToken cancellationToken = default);
 }

@@ -18,10 +18,16 @@ public class SalesOrderService : ISalesOrderService
 
     public async Task<SalesOrderDto?> GetByIdAsync(int id, bool shouldIncludeSalesOrderDetails = false, CancellationToken cancellationToken = default)
     {
-        var saleOrder = await _salesOrderRepository.GetByIdAsync(id, shouldIncludeSalesOrderDetails, cancellationToken);
+        var salesOrder = await _salesOrderRepository.GetByIdAsync(id, shouldIncludeSalesOrderDetails, cancellationToken);
 
-        return saleOrder == null 
-            ? null 
-            : _mapper.Map<SalesOrderDto>(saleOrder);
+        return salesOrder != null 
+            ? _mapper.Map<SalesOrderDto>(salesOrder)
+            : null;
+    }
+
+    public async Task<IEnumerable<SalesOrderDto>?> GetAllAsync(bool shouldIncludeSalesOrderDetails = false, CancellationToken cancellationToken = default)
+    {
+        var salesOrders = await _salesOrderRepository.GetAllAsync(shouldIncludeSalesOrderDetails, cancellationToken);
+        return _mapper.Map<IEnumerable<SalesOrderDto>>(salesOrders);
     }
 }
